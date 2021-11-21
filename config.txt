@@ -1,0 +1,4 @@
+player-name: Diyon
+player-health: 20
+player-souls: 0
+has-saved-data: true
