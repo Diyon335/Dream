@@ -1,11 +1,17 @@
+import java.util.HashSet;
+import java.util.Set;
+
 public abstract class Moveable extends DreamObject {
 
     private int health;
+    private Set<Attacks> attacks = new HashSet<>();
 
     public Moveable(DreamLocation location, int health) {
         super(location);
         this.health = health;
     }
+
+    //TODO IMplemetn attacs. You need a hashmap
 
     public int getHealth(){
         return this.health;

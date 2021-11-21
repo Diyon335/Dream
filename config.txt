@@ -2,3 +2,5 @@ player-name: Diyon
 player-health: 20
 player-souls: 0
 has-saved-data: true
+max-food: 10
+max-monsters: 15

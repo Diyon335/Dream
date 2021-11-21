@@ -3,8 +3,7 @@ import java.io.*;
 public class ConfigReader {
 
     private String playerName;
-    private int playerHealth;
-    private int playerSouls;
+    private int playerHealth, playerSouls, maxFood, maxMonsters;
     private boolean hasSaved;
     private DreamWorld world;
 
@@ -13,6 +12,8 @@ public class ConfigReader {
             "player-health: 20",
             "player-souls: 0",
             "has-saved-data: false",
+            "max-food: 10",
+            "max-monsters: 15"
     };
 
 
@@ -27,6 +28,8 @@ public class ConfigReader {
             this.playerHealth = Integer.parseInt(reader.readLine().split(" ")[1]);
             this.playerSouls = Integer.parseInt(reader.readLine().split(" ")[1]);
             this.hasSaved = Boolean.parseBoolean(reader.readLine().split(" ")[1]);
+            this.maxFood = Integer.parseInt(reader.readLine().split(" ")[1]);
+            this.maxMonsters = Integer.parseInt(reader.readLine().split(" ")[1]);
 
             reader.close();
 
@@ -72,7 +75,9 @@ public class ConfigReader {
                     String.format("player-name: %s", this.world.getPlayer().getName()),
                     String.format("player-health: %d", this.world.getPlayerHealth()),
                     String.format("player-souls: %d", this.world.getPlayerSouls()),
-                    "has-saved-data: true"
+                    "has-saved-data: true",
+                    "max-food: 10",
+                    "max-monsters: 15"
             };
 
             FileWriter writer = new FileWriter(new File("config.txt"), false);
@@ -89,5 +94,13 @@ public class ConfigReader {
         } catch (IOException e){
             e.printStackTrace();
         }
+    }
+
+    public int getMaxFood() {
+        return maxFood;
+    }
+
+    public int getMaxMonsters() {
+        return maxMonsters;
     }
 }

@@ -18,6 +18,8 @@ public class DreamWorld {
     private ArrayList<BaseCommand> commands = new ArrayList<>();
     private HashMap<String,BaseCommand> commandHandler = new HashMap<>();
 
+    private final Attacks[] attacks = Attacks.values();
+
     private Set<String> directions = new HashSet<>(Arrays.asList("north","east","south","west","n","e","s","w"));
     private Set<DreamObject> inanimateObjects = new HashSet<>();
     private Set<DreamObject> monsters = new HashSet<>();
@@ -33,6 +35,7 @@ public class DreamWorld {
         this.cols = cols;
         this.world = new DreamObject[rows][cols];
         this.config = new ConfigReader(this);
+        setPlayerName(getConfig().getPlayerName());
 
         registerCommands();
     }
@@ -134,36 +137,42 @@ public class DreamWorld {
             //TODO Handle if meets a monster
             for (int i = 0; i < steps; i++){
                 int[] tempLocation = player.getObjectLocation();
+                int newX = -1;
+                int newY = -1;
+                int changeDreamX = -1;
+                int changeDreamY = -1;
 
                 switch (direction){
                     case NORTH -> {
-                        if (getObjectAt(tempLocation[0] - 1, tempLocation[1]) instanceof Space){
-                            this.world[tempLocation[0]][tempLocation[1]] = new Space(player.getDreamLocation());
-                            this.world[tempLocation[0]-1][tempLocation[1]] = player;
-                            player.changeDreamLocation(-1,0);
-                        }
+                        newX = tempLocation[0] - 1;
+                        newY = tempLocation[1];
+                        //changeDreamX already -1
+                        changeDreamY = 0;
                     }
                     case EAST -> {
-                        if (getObjectAt(tempLocation[0], tempLocation[1] + 1) instanceof Space){
-                            this.world[tempLocation[0]][tempLocation[1]] = new Space(player.getDreamLocation());
-                            this.world[tempLocation[0]][tempLocation[1] + 1] = player;
-                            player.changeDreamLocation(0,1);
-                        }
+                        newX = tempLocation[0];
+                        newY = tempLocation[1] + 1;
+                        changeDreamX = 0;
+                        changeDreamY = 1;
                     }
                     case SOUTH -> {
-                        if (getObjectAt(tempLocation[0] + 1, tempLocation[1]) instanceof Space){
-                            this.world[tempLocation[0]][tempLocation[1]] = new Space(player.getDreamLocation());
-                            this.world[tempLocation[0] + 1][tempLocation[1]] = player;
-                            player.changeDreamLocation(1,0);
-                        }
+                        newX = tempLocation[0] + 1;
+                        newY = tempLocation[1];
+                        changeDreamX = 1;
+                        changeDreamY = 0;
                     }
                     case WEST -> {
-                        if (getObjectAt(tempLocation[0], tempLocation[1] - 1) instanceof Space){
-                            this.world[tempLocation[0]][tempLocation[1]] = new Space(player.getDreamLocation());
-                            this.world[tempLocation[0]][tempLocation[1] - 1] = player;
-                            player.changeDreamLocation(0,-1);
-                        }
+                        newX = tempLocation[0];
+                        newY = tempLocation[1] - 1;
+                        changeDreamX = 0;
+                        //changeDreamY already -1
                     }
+                }
+
+                if (getObjectAt(newX, newY) instanceof Space){
+                    this.world[tempLocation[0]][tempLocation[1]] = new Space(player.getDreamLocation());
+                    this.world[newX][newY] = player;
+                    player.changeDreamLocation(changeDreamX,changeDreamY);
                 }
 
                 Utils.sleepThread(1000);
@@ -175,9 +184,6 @@ public class DreamWorld {
 
         System.out.println("Your insufferable lucid state eludes you from going over the edge of the world. Think again.");
     }
-
-    //TODO IMPLEMENT GET OBJECT ONE STEP IN PARTICULAR DIRECTION
-    //TODO IMPLEMENT A REPLACEMENT OF PLAYER AND SPACE
 
     /**
      * Indicates whether the player is in game or not

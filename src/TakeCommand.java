@@ -41,7 +41,7 @@ public class TakeCommand extends BaseCommand {
      */
     @Override
     public String getDescription() {
-        return "Take an object and place it into your bag";
+        return "Take an object that is in front of you and place it into your bag";
     }
 
     /**
