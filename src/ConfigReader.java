@@ -73,8 +73,8 @@ public class ConfigReader {
         try{
             String [] strings = {
                     String.format("player-name: %s", this.world.getPlayer().getName()),
-                    String.format("player-health: %d", this.world.getPlayerHealth()),
-                    String.format("player-souls: %d", this.world.getPlayerSouls()),
+                    String.format("player-health: %d", this.world.getPlayer().getHealth()),
+                    String.format("player-souls: %d", this.world.getPlayer().getSouls()),
                     "has-saved-data: true",
                     "max-food: 10",
                     "max-monsters: 15"

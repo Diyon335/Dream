@@ -48,14 +48,6 @@ public class DreamWorld {
         this.playerName = name;
     }
 
-    public int getPlayerHealth(){
-        return this.player.getHealth();
-    }
-
-    public int getPlayerSouls(){
-        return this.player.getSouls();
-    }
-
     /**
      * Initialises the world
      */
@@ -137,42 +129,15 @@ public class DreamWorld {
             //TODO Handle if meets a monster
             for (int i = 0; i < steps; i++){
                 int[] tempLocation = player.getObjectLocation();
-                int newX = -1;
-                int newY = -1;
-                int changeDreamX = -1;
-                int changeDreamY = -1;
+                int newRow = tempLocation[0] + direction.getRowChange();
+                int newCol = tempLocation[1] + direction.getColChange();
+                int changeDreamRow = direction.getRowChange();
+                int changeDreamCol = direction.getColChange();
 
-                switch (direction){
-                    case NORTH -> {
-                        newX = tempLocation[0] - 1;
-                        newY = tempLocation[1];
-                        //changeDreamX already -1
-                        changeDreamY = 0;
-                    }
-                    case EAST -> {
-                        newX = tempLocation[0];
-                        newY = tempLocation[1] + 1;
-                        changeDreamX = 0;
-                        changeDreamY = 1;
-                    }
-                    case SOUTH -> {
-                        newX = tempLocation[0] + 1;
-                        newY = tempLocation[1];
-                        changeDreamX = 1;
-                        changeDreamY = 0;
-                    }
-                    case WEST -> {
-                        newX = tempLocation[0];
-                        newY = tempLocation[1] - 1;
-                        changeDreamX = 0;
-                        //changeDreamY already -1
-                    }
-                }
-
-                if (getObjectAt(newX, newY) instanceof Space){
+                if (getObjectAt(newCol, newRow) instanceof Space){
                     this.world[tempLocation[0]][tempLocation[1]] = new Space(player.getDreamLocation());
-                    this.world[newX][newY] = player;
-                    player.changeDreamLocation(changeDreamX,changeDreamY);
+                    this.world[newRow][newCol] = player;
+                    player.changeDreamLocation(changeDreamRow,changeDreamCol);
                 }
 
                 Utils.sleepThread(1000);

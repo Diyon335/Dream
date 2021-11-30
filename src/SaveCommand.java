@@ -63,5 +63,6 @@ public class SaveCommand extends BaseCommand{
         }
 
         getWorld().getConfig().saveConfig();
+        System.out.println("Your game was saved!");
     }
 }

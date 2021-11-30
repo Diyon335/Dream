@@ -1,7 +1,11 @@
+import java.util.Set;
+
 public class DreamMonster extends Moveable{
 
     public DreamMonster(DreamLocation location, int health) {
         super(location, health);
+
+        addAttack(Attacks.SLASH);
     }
 
     /**

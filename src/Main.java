@@ -31,7 +31,6 @@ public class Main {
 
         try{
             world.parseFile(file);
-
         } catch (IOException | BadFileFormatException e){
             e.printStackTrace();
             System.exit(0);
@@ -41,7 +40,7 @@ public class Main {
         System.out.println(world);
 
         while(world.getGameState()==GameState.INGAME){
-            System.out.printf("[HP:%d S:%d] Type a command >", world.getPlayerHealth(),world.getPlayerSouls());
+            System.out.printf("[HP:%d S:%d] Type a command >", world.getPlayer().getHealth(),world.getPlayer().getSouls());
             world.play(scanner.nextLine());
         }
 

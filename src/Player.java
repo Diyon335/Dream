@@ -1,3 +1,5 @@
+import java.util.Set;
+
 public class Player extends Moveable {
 
     private String name;
@@ -12,6 +14,8 @@ public class Player extends Moveable {
         this.name = name;
         this.souls = souls;
         this.bag = new Bag();
+
+        addAttack(Attacks.TACKLE);
     }
 
     public Bag getBag(){
@@ -114,4 +118,6 @@ public class Player extends Moveable {
     public boolean canFight(){
         return true;
     }
+
+
 }

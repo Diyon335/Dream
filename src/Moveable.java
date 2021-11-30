@@ -1,17 +1,17 @@
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 public abstract class Moveable extends DreamObject {
 
     private int health;
-    private Set<Attacks> attacks = new HashSet<>();
+    private HashMap<String,Attacks> attacks = new HashMap<>();
 
     public Moveable(DreamLocation location, int health) {
         super(location);
         this.health = health;
     }
-
-    //TODO IMplemetn attacs. You need a hashmap
 
     public int getHealth(){
         return this.health;
@@ -27,6 +27,29 @@ public abstract class Moveable extends DreamObject {
 
     public void setHealth(int health){
         this.health = health;
+    }
+
+    public Set<Attacks> getAttacks(){
+        Set<Attacks> toReturn = new HashSet<>();
+        for (Map.Entry<String,Attacks> entry : this.attacks.entrySet()){
+            toReturn.add(entry.getValue());
+        }
+        return toReturn;
+    }
+
+    public void addAttack(Attacks attack){this.attacks.put(attack.getName(),attack);}
+
+    public boolean containsAttack(Attacks attacks){
+        for (Map.Entry<String,Attacks> entry : this.attacks.entrySet()){
+            if(entry.getKey().equalsIgnoreCase(attacks.getName())){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public int getAttackDamage(Attacks attacks){
+        return this.attacks.get(attacks.getName()).getDamage();
     }
 
     /**
