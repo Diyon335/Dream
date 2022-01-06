@@ -1,7 +1,15 @@
-public class Space extends DreamObject{
+package Objects;
 
+import AbstractClasses.MiscObject;
+import GameClasses.DreamLocation;
 
-    public Space(DreamLocation location){
+public class Picture extends MiscObject {
+    /**
+     * Constructor for the Dream Object
+     *
+     * @param location Dream location of the object
+     */
+    public Picture(DreamLocation location) {
         super(location);
     }
 
@@ -10,7 +18,7 @@ public class Space extends DreamObject{
      */
     @Override
     public String getName() {
-        return "Space";
+        return "Picture";
     }
 
     /**
@@ -18,7 +26,7 @@ public class Space extends DreamObject{
      */
     @Override
     public String getDescription() {
-        return "Space can be moved into";
+        return "A picture of someone. You can't tell who it is because they have no face.. but they seem familiar";
     }
 
     /**
@@ -26,7 +34,7 @@ public class Space extends DreamObject{
      */
     @Override
     public char getSymbol() {
-        return '.';
+        return 'i';
     }
 
     /**
@@ -34,7 +42,7 @@ public class Space extends DreamObject{
      */
     @Override
     public boolean isPickable() {
-        return false;
+        return true;
     }
 
     /**
@@ -42,7 +50,6 @@ public class Space extends DreamObject{
      */
     @Override
     public boolean isEdible() {
-        return true;
+        return false;
     }
-
 }

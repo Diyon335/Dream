@@ -1,3 +1,8 @@
+package Exceptions;
+
+/**
+ * Class for the bad file format exception
+ */
 public class BadFileFormatException extends Exception {
 
     private String errorMessage;

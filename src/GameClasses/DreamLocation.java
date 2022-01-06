@@ -1,3 +1,5 @@
+package GameClasses;
+
 public class DreamLocation {
 
     private int row;
@@ -30,6 +32,10 @@ public class DreamLocation {
     public int[] getLocation(){
         return new int[]{this.row,this.col};
     }
+
+    public int getRow(){return this.row;}
+
+    public int getCol(){return this.col;}
 
     /**
      * Returns a boolean if a specified location is the same as this location

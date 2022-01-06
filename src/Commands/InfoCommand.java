@@ -1,6 +1,19 @@
-public class SaveCommand extends BaseCommand{
+package Commands;
 
-    public SaveCommand(DreamWorld world) {
+import AbstractClasses.BaseCommand;
+import AbstractClasses.DreamObject;
+import Enums.Direction;
+import GameClasses.DreamLocation;
+import GameClasses.DreamWorld;
+import Objects.Space;
+
+public class InfoCommand extends BaseCommand {
+    /**
+     * Constructor for Base Command
+     *
+     * @param world Dream world
+     */
+    public InfoCommand(DreamWorld world) {
         super(world);
     }
 
@@ -11,7 +24,7 @@ public class SaveCommand extends BaseCommand{
      */
     @Override
     public String getCommand() {
-        return "save";
+        return "info";
     }
 
     /**
@@ -41,7 +54,7 @@ public class SaveCommand extends BaseCommand{
      */
     @Override
     public String getDescription() {
-        return "Saves the state of the game";
+        return "Shows you information about the object in front of you";
     }
 
     /**
@@ -51,18 +64,35 @@ public class SaveCommand extends BaseCommand{
      */
     @Override
     public String getUsage() {
-        return ">save";
+        return ">info";
     }
 
+    /**
+     * Executes the command
+     *
+     * @param args An array of strings as arguments
+     */
     @Override
     public void execute(String[] args) {
 
-        if(args.length > 0){
+        if (args.length > 0){
             System.out.println("Invalid use of the command. Try >help for a list of commands");
             return;
         }
 
-        getWorld().getConfig().saveConfig();
-        System.out.println("Your game was saved!");
+        Direction direction = getWorld().getPlayer().getFacing();
+
+        DreamLocation playerLocation = getWorld().getPlayer().getDreamLocation();
+
+        DreamObject object = getWorld().getObjectAt(playerLocation.getRow() + direction.getRowChange(),
+                playerLocation.getCol() + direction.getColChange());
+
+        if (object instanceof Space){
+            System.out.println("There is nothing in front of you");
+            return;
+        }
+
+        System.out.println(object.getName()+" - "+object.getDescription());
+
     }
 }

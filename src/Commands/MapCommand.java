@@ -1,6 +1,11 @@
-public class TakeCommand extends BaseCommand {
+package Commands;
 
-    public TakeCommand(DreamWorld world) {
+import AbstractClasses.BaseCommand;
+import GameClasses.DreamWorld;
+
+public class MapCommand extends BaseCommand {
+
+    public MapCommand(DreamWorld world){
         super(world);
     }
 
@@ -11,7 +16,7 @@ public class TakeCommand extends BaseCommand {
      */
     @Override
     public String getCommand() {
-        return "take";
+        return "map";
     }
 
     /**
@@ -21,7 +26,7 @@ public class TakeCommand extends BaseCommand {
      */
     @Override
     public String[] getArguments() {
-        return new String[]{"object"};
+        return new String[]{};
     }
 
     /**
@@ -31,7 +36,7 @@ public class TakeCommand extends BaseCommand {
      */
     @Override
     public int getRequiredArgs() {
-        return getArguments().length;
+        return 0;
     }
 
     /**
@@ -41,7 +46,7 @@ public class TakeCommand extends BaseCommand {
      */
     @Override
     public String getDescription() {
-        return "Take an object that is in front of you and place it into your bag";
+        return "Shows you the map of the world";
     }
 
     /**
@@ -50,12 +55,22 @@ public class TakeCommand extends BaseCommand {
      * @return Returns a string describing the usage of the command
      */
     @Override
-    public String getUsage(){
-        return "Usage: >take <object>";
+    public String getUsage() {
+        return ">map";
     }
 
+    /**
+     * Executes the command
+     *
+     * @param args An array of strings as arguments
+     */
     @Override
     public void execute(String[] args) {
+        if(args.length > 0){
+            System.out.println("Invalid use of the command. Try >help for a list of commands");
+            return;
+        }
 
+        System.out.println(getWorld());
     }
 }

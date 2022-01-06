@@ -1,3 +1,8 @@
+package Objects;
+
+import AbstractClasses.Food;
+import GameClasses.DreamLocation;
+
 public class DreamApple extends Food {
 
     public DreamApple(DreamLocation location) {
@@ -9,7 +14,7 @@ public class DreamApple extends Food {
      */
     @Override
     public String getName() {
-        return "Dream Apple";
+        return "Apple";
     }
 
     /**

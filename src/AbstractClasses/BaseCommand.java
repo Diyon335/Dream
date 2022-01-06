@@ -1,14 +1,25 @@
+package AbstractClasses;
+import GameClasses.DreamWorld;
+
 /**
- * The interface for commands
+ * The abstract class for commands
  */
 public abstract class BaseCommand {
 
     DreamWorld world;
 
+    /**
+     * Constructor for Base Command
+     * @param world Dream world
+     */
     public BaseCommand(DreamWorld world){
         this.world = world;
     }
 
+    /**
+     *
+     * @return Returns the Dream world
+     */
     protected DreamWorld getWorld(){
         return this.world;
     }
@@ -48,5 +59,9 @@ public abstract class BaseCommand {
      */
     public abstract String getUsage();
 
+    /**
+     * Executes the command
+     * @param args An array of strings as arguments
+     */
     public abstract void execute(String[] args);
 }

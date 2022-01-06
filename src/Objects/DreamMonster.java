@@ -1,11 +1,17 @@
-import java.util.Set;
+package Objects;
 
-public class DreamMonster extends Moveable{
+import AbstractClasses.Moveable;
+import Enums.Attack;
+import GameClasses.DreamLocation;
+
+public class DreamMonster extends Moveable {
 
     public DreamMonster(DreamLocation location, int health) {
         super(location, health);
 
-        addAttack(Attacks.SLASH);
+        addAttack(Attack.SLASH);
+        addAttack(Attack.TACKLE);
+        addAttack(Attack.SCARE);
     }
 
     /**
@@ -13,7 +19,7 @@ public class DreamMonster extends Moveable{
      */
     @Override
     public String getName() {
-        return null;
+        return "Monster";
     }
 
     /**
@@ -21,7 +27,7 @@ public class DreamMonster extends Moveable{
      */
     @Override
     public String getDescription() {
-        return null;
+        return "A basic monster in the Dream World";
     }
 
     /**
@@ -29,7 +35,7 @@ public class DreamMonster extends Moveable{
      */
     @Override
     public char getSymbol() {
-        return 0;
+        return 'm';
     }
 
     /**
@@ -53,7 +59,7 @@ public class DreamMonster extends Moveable{
      */
     @Override
     public String[] getDialogue() {
-        return new String[0];
+        return new String[]{"Don't think you'll see your family again!","I am going to defeat you","So you will be asleep forever!!"};
     }
 
     /**
@@ -61,7 +67,7 @@ public class DreamMonster extends Moveable{
      */
     @Override
     public boolean canMove() {
-        return false;
+        return true;
     }
 
     /**
@@ -69,7 +75,7 @@ public class DreamMonster extends Moveable{
      */
     @Override
     public boolean canFight() {
-        return false;
+        return true;
     }
 
     /**
@@ -77,6 +83,6 @@ public class DreamMonster extends Moveable{
      */
     @Override
     public boolean isDamageable() {
-        return false;
+        return true;
     }
 }

@@ -1,6 +1,14 @@
-public class TravelCommand extends BaseCommand {
+package Commands;
 
-    public TravelCommand(DreamWorld world) {
+import AbstractClasses.BaseCommand;
+import AbstractClasses.DreamObject;
+import GameClasses.DreamWorld;
+
+import java.util.Set;
+
+public class BagCommand extends BaseCommand {
+
+    public BagCommand(DreamWorld world){
         super(world);
     }
 
@@ -11,7 +19,7 @@ public class TravelCommand extends BaseCommand {
      */
     @Override
     public String getCommand() {
-        return "travel";
+        return "bag";
     }
 
     /**
@@ -21,7 +29,7 @@ public class TravelCommand extends BaseCommand {
      */
     @Override
     public String[] getArguments() {
-        return new String[]{"direction","steps"};
+        return new String[]{};
     }
 
     /**
@@ -31,7 +39,7 @@ public class TravelCommand extends BaseCommand {
      */
     @Override
     public int getRequiredArgs() {
-        return getArguments().length;
+        return 0;
     }
 
     /**
@@ -41,7 +49,7 @@ public class TravelCommand extends BaseCommand {
      */
     @Override
     public String getDescription() {
-        return "Travel in a particular direction for a specified number of steps";
+        return "Opens your bag";
     }
 
     /**
@@ -51,24 +59,29 @@ public class TravelCommand extends BaseCommand {
      */
     @Override
     public String getUsage() {
-        return "travel <direction> <steps>";
+        return ">bag";
     }
 
+    /**
+     * Executes the command
+     *
+     * @param args An array of strings as arguments
+     */
     @Override
     public void execute(String[] args) {
 
-        if (Utils.parseDirection(args[0]) == null){
-            System.out.println("Invalid direction. Try north or n, east or e, etc.");
+        if(args.length > 0){
+            System.out.println("Invalid use of the command. Try >help for a list of commands");
             return;
         }
 
-        if(Utils.notANumber(args[1])){
-            System.out.println("Please enter a number for the amount of steps");
-            return;
+        Set<DreamObject> objects = getWorld().getPlayer().getBag().getItems();
+
+        System.out.println("Your bag contains:");
+
+        for(DreamObject object : objects){
+            System.out.println(object.getName()+" : "+object.getDescription());
         }
 
-        Player player = getWorld().getPlayer();
-
-        getWorld().movePlayer(player, Utils.parseDirection(args[0]), Utils.parseNumb(args[1]));
     }
 }

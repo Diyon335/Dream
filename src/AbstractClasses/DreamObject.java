@@ -1,3 +1,7 @@
+package AbstractClasses;
+
+import GameClasses.DreamLocation;
+
 /**
  * Abstract class for all objects in the Dream world
  */
@@ -5,6 +9,10 @@ public abstract class DreamObject {
 
     private DreamLocation location;
 
+    /**
+     * Constructor for the Dream Object
+     * @param location Dream location of the object
+     */
     public DreamObject(DreamLocation location){
         this.location = location;
     }
@@ -58,6 +66,10 @@ public abstract class DreamObject {
      */
     public void changeDreamLocation(int rowChange, int colChange){
         this.location.changeLocation(rowChange,colChange);
+    }
+
+    public void setLocation(DreamLocation location){
+        this.location = location;
     }
 
 }

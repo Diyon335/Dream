@@ -1,12 +1,13 @@
-public class DreamCake extends Food {
+package Objects;
 
-    public DreamCake(DreamLocation location) {
+import AbstractClasses.DreamObject;
+import GameClasses.DreamLocation;
+
+public class Space extends DreamObject {
+
+
+    public Space(DreamLocation location){
         super(location);
-    }
-
-    @Override
-    public int reviveHP() {
-        return 5;
     }
 
     /**
@@ -14,7 +15,7 @@ public class DreamCake extends Food {
      */
     @Override
     public String getName() {
-        return "Dream Cake";
+        return "Objects.Space";
     }
 
     /**
@@ -22,7 +23,7 @@ public class DreamCake extends Food {
      */
     @Override
     public String getDescription() {
-        return "A little cake made out of Dreams. Gives you "+reviveHP()+" HP";
+        return "Objects.Space can be moved into";
     }
 
     /**
@@ -30,7 +31,7 @@ public class DreamCake extends Food {
      */
     @Override
     public char getSymbol() {
-        return 'c';
+        return '.';
     }
 
     /**
@@ -38,7 +39,7 @@ public class DreamCake extends Food {
      */
     @Override
     public boolean isPickable() {
-        return true;
+        return false;
     }
 
     /**
@@ -48,4 +49,5 @@ public class DreamCake extends Food {
     public boolean isEdible() {
         return true;
     }
+
 }

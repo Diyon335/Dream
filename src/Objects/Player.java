@@ -1,10 +1,17 @@
-import java.util.Set;
+package Objects;
+
+import AbstractClasses.Moveable;
+import Enums.Attack;
+import Enums.Direction;
+import GameClasses.DreamLocation;
 
 public class Player extends Moveable {
 
     private String name;
     private Bag bag;
     private int souls;
+    private Direction facing = Direction.NORTH;
+
     /**
      * Constructor for the player object
      * @param name Name of the player
@@ -15,18 +22,30 @@ public class Player extends Moveable {
         this.souls = souls;
         this.bag = new Bag();
 
-        addAttack(Attacks.TACKLE);
+        addAttack(Attack.TACKLE);
+        addAttack(Attack.PUNCH);
     }
+
+    public void setFacing(Direction direction){
+        this.facing = direction;
+    }
+
+    public Direction getFacing(){return this.facing;}
 
     public Bag getBag(){
         return this.bag;
     }
 
     public int getSouls(){
+
+        if (this.souls < 0){
+            setSouls(0);
+        }
+
         return this.souls;
     }
 
-    public void takeSouls(int cost){
+    public void deductSouls(int cost){
         this.souls-=cost;
     }
 

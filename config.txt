@@ -1,6 +1,12 @@
 player-name: Diyon
-player-health: 20
+player-health: 34
 player-souls: 0
 has-saved-data: true
-max-food: 10
-max-monsters: 15
+max-food: 40
+max-monsters: 40
+monster-health: 15
+boss-health: 100
+player-items: w
+souls-per-win: 10
+souls-per-loss: 5
+default-health: 20
