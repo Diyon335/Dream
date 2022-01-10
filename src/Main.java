@@ -12,6 +12,10 @@ import java.util.Scanner;
  */
 public class Main {
 
+    /**
+     * The main method
+     * @param args Array of strings as arguments
+     */
     public static void main(String[] args) {
 
         DreamWorld world = new DreamWorld(35,42);
@@ -51,10 +55,6 @@ public class Main {
             e.printStackTrace();
             System.exit(0);
         }
-
-        /*
-        //TODO REMOVE WHEN DONE
-        System.out.println(world);*/
 
         while(world.getGameState()== GameState.INGAME){
             System.out.printf("[HP:%d S:%d][%s] Type a command >", world.getPlayer().getHealth(),world.getPlayer().getSouls(),world.getPlayer().getFacing());

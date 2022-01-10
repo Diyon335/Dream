@@ -1,9 +1,6 @@
 package Commands;
 
 import AbstractClasses.BaseCommand;
-import AbstractClasses.DreamObject;
-import Enums.Direction;
-import GameClasses.DreamLocation;
 import GameClasses.DreamWorld;
 import GameClasses.Utils;
 

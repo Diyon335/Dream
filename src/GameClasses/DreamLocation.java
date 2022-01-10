@@ -33,8 +33,16 @@ public class DreamLocation {
         return new int[]{this.row,this.col};
     }
 
+    /**
+     *
+     * @return Returns the row of the dream location
+     */
     public int getRow(){return this.row;}
 
+    /**
+     *
+     * @return Returns the column of the dream location
+     */
     public int getCol(){return this.col;}
 
     /**
@@ -43,6 +51,6 @@ public class DreamLocation {
      * @return Returns a boolean
      */
     public boolean isSameAs(DreamLocation dreamLocation){
-        return this.row== dreamLocation.getLocation()[0] && this.col== dreamLocation.getLocation()[1];
+        return this.row== dreamLocation.getRow() && this.col== dreamLocation.getCol();
     }
 }

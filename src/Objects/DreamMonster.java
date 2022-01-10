@@ -61,28 +61,4 @@ public class DreamMonster extends Moveable {
     public String[] getDialogue() {
         return new String[]{"Don't think you'll see your family again!","I am going to defeat you","So you will be asleep forever!!"};
     }
-
-    /**
-     * @return Returns a boolean indicating whether the object can move
-     */
-    @Override
-    public boolean canMove() {
-        return true;
-    }
-
-    /**
-     * @return Returns a boolean indicating whether the object can fight
-     */
-    @Override
-    public boolean canFight() {
-        return true;
-    }
-
-    /**
-     * @return Returns a boolean indicating whether the object can be damaged
-     */
-    @Override
-    public boolean isDamageable() {
-        return true;
-    }
 }

@@ -6,8 +6,15 @@ import GameClasses.DreamWorld;
 
 import java.util.Set;
 
+/**
+ * The command to access the bag
+ */
 public class BagCommand extends BaseCommand {
 
+    /**
+     * Constructor for the bag command
+     * @param world The super's dream world
+     */
     public BagCommand(DreamWorld world){
         super(world);
     }

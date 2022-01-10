@@ -111,32 +111,5 @@ public class Player extends Moveable {
         return false;
     }
 
-    /**
-     *
-     * @return Returns a boolean indicating whether the object can be damaged
-     */
-    @Override
-    public boolean isDamageable() {
-        return true;
-    }
-
-    /**
-     *
-     * @return Returns a boolean indicating whether the object can move
-     */
-    @Override
-    public boolean canMove() {
-        return true;
-    }
-
-    /**
-     *
-     * @return Returns a boolean indicating whether the object can fight
-     */
-    @Override
-    public boolean canFight(){
-        return true;
-    }
-
 
 }

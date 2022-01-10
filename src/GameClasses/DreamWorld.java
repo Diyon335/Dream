@@ -23,7 +23,6 @@ public class DreamWorld {
 
     private Player player;
     private String playerName;
-    private boolean inFight = false;
 
     private GameState state = GameState.INGAME;
 
@@ -67,27 +66,44 @@ public class DreamWorld {
         startSpawnTimers();
     }
 
+    /**
+     *
+     * @return Returns the instance of the config reader
+     */
     public ConfigReader getConfig(){
         return this.config;
     }
 
+    /**
+     * Sets the name of the player
+     * @param name String indicating name of player
+     */
     public void setPlayerName(String name){
         this.playerName = name;
     }
 
+    /**
+     * Starts the timer to spawn monsters and food
+     */
     private void startSpawnTimers(){
 
         this.spawnerTask = new SpawnerTask(this);
-        // Spawns monsters and food every 10 mins, after a delay of 5 mins
+
         this.timer.schedule(this.spawnerTask, 300000, 600000);
     }
 
+    /**
+     * Loads the items that the player has in their bag
+     */
     private void loadPlayerBag(){
         for (DreamObject object : getConfig().getPlayerItems()){
             this.player.getBag().addItem(object);
         }
     }
 
+    /**
+     * Saves the state and configuration of the game
+     */
     public void saveAndQuit(){
 
         this.timer.cancel();
@@ -96,20 +112,28 @@ public class DreamWorld {
         this.state = GameState.OFFLINE;
     }
 
+    /**
+     * Sets the state of the game
+     * @param gameState GameState enumeration
+     */
     public void setState(GameState gameState){
         this.state = gameState;
     }
 
+    /**
+     * Stops the timer for spawning food and monsters
+     */
     public void stopSpawnTask(){
         this.timer.cancel();
     }
 
-
+    /**
+     * Starts a fight between the player and a monster
+     * @param monster Any moveable dream object
+     */
     public void startFight(Moveable monster){
 
         FightTurn turn = FightTurn.PLAYER;
-
-        this.inFight = true;
 
         System.out.println("\nYour opponent says: ");
         Utils.printDialogue(monster.getDialogue());
@@ -198,26 +222,55 @@ public class DreamWorld {
 
             this.spawnerTask.cancel();
         }
-
-        this.inFight = false;
     }
 
+    /**
+     * Teleports the player to the spawn point and replaces their position with space
+     */
     private void teleportToSpawn(){
-
         replaceWithSpace(this.player);
 
         this.world[this.spawn.getRow()][this.spawn.getCol()] = this.player;
-        this.player.setLocation(this.spawn);
+        this.player.setLocation(new DreamLocation(this.spawn.getRow(),this.spawn.getCol()));
     }
 
+    /**
+     * Replaces a location with space
+     * @param object Dream object to be replaced
+     */
+    public void replaceWithSpace(DreamObject object){
+        DreamLocation location = object.getDreamLocation();
+
+        if (object instanceof DreamMonster){
+            this.monsters.remove(object);
+        }
+
+        if (object instanceof Food){
+            this.food.remove(object);
+        }
+
+        this.world[location.getRow()][location.getCol()] = new Space(location);
+    }
+
+    /**
+     *
+     * @return Returns a boolean indicating if the world has the maximum amount of allowed monsters
+     */
     private boolean hasMaxMonsters(){
         return this.monsters.size() >= this.config.getMaxMonsters();
     }
 
+    /**
+     *
+     * @return Returns a boolean indicating if the world has the maximum amount of allowed food
+     */
     private boolean hasMaxFood(){
         return this.food.size() >= this.config.getMaxFood();
     }
 
+    /**
+     * Spawns monsters and food in the world
+     */
     public void spawnEntities(){
 
         if(!hasMaxMonsters()){
@@ -254,6 +307,10 @@ public class DreamWorld {
         }
     }
 
+    /**
+     *
+     * @return Returns the first found instance of space in the world
+     */
     public DreamLocation findFirstSpace(){
 
         int row = new Random().nextInt(this.rows);
@@ -288,9 +345,6 @@ public class DreamWorld {
             if(getCommand(command).getArguments().length == args.length){
 
                 getCommand(command).execute(args);
-                /*
-                //TODO REMOVE WHEN DONE
-                System.out.println(toString());*/
                 return;
             }
 
@@ -324,8 +378,17 @@ public class DreamWorld {
         }
     }
 
+    /**
+     *
+     * @return Returns an array list of all available commands
+     */
     public ArrayList<BaseCommand> getCommands(){return this.commands;}
 
+    /**
+     * Returns the base command if available
+     * @param command A string with the same name as the command
+     * @return Returns a command object
+     */
     public BaseCommand getCommand(String command){
         return this.commandHandler.get(command);
     }
@@ -334,38 +397,48 @@ public class DreamWorld {
      * Returns a boolean if the entered move can be performed with the amount of specified steps
      * @param object Dream Object that needs to be moved
      * @param direction A string indicating the direction
-     * @param steps An integer indicating number of steps
      * @return Returns a boolean
      */
-    private boolean isValidMove(DreamObject object, Direction direction, int steps){
+    private boolean isValidMove(DreamObject object, Direction direction){
 
         int[] tempLoc = object.getObjectLocation();
 
         switch (direction){
-            case NORTH: tempLoc[0]-=steps; break;
-            case EAST: tempLoc[1]+=steps; break;
-            case SOUTH: tempLoc[0]+=steps; break;
-            case WEST: tempLoc[1]-=steps; break;
+            case NORTH: tempLoc[0]-=1; break;
+            case EAST: tempLoc[1]+=1; break;
+            case SOUTH: tempLoc[0]+=1; break;
+            case WEST: tempLoc[1]-=1; break;
         }
 
         //This line basically checks if the location is inside the 2x2 matrix
-        return (tempLoc[0]<=this.rows && tempLoc[0]>=0) && (tempLoc[1]<=this.cols && tempLoc[1]>=0);
+        return (tempLoc[0]<=this.rows-1 && tempLoc[0]>=0) && (tempLoc[1]<=this.cols-1 && tempLoc[1]>=0);
     }
 
+    /**
+     * Checks whether a location is a valid location, i.e. within the bounds of the world
+     * @param location Dream location to be checked
+     * @return Returns a boolean
+     */
     private boolean isValidLocation(DreamLocation location){
         return (location.getRow()<=this.rows-1 && location.getRow()>=0) && (location.getCol()<=this.cols-1 && location.getCol()>=0);
     }
 
+    /**
+     * Moves a player in a specified direction for a specified amount of steps
+     * @param player Player object
+     * @param direction Direction to be moved in
+     * @param steps Integer for number of steps
+     */
     public void movePlayer(Player player, Direction direction, int steps){
 
-        if (isValidMove(player,direction,steps)){
+        this.player.setFacing(direction);
 
-            this.player.setFacing(direction);
+        System.out.println("You travel "+direction);
+        int travelled = 0;
 
-            System.out.println("You travel "+direction);
-            int travelled = 0;
+        for (int i = 0; i < steps; i++){
 
-            for (int i = 0; i < steps; i++){
+            if (isValidMove(player, direction)){
 
                 int[] tempLocation = player.getObjectLocation();
                 int newRow = tempLocation[0] + direction.getRowChange();
@@ -402,17 +475,20 @@ public class DreamWorld {
 
                 travelled++;
                 moveMonsters();
-                /*
-                //TODO REMOVE WHEN DONE
-                System.out.println();*/
+
+            } else {
+
+                System.out.println("You can't travel any further");
+                break;
             }
-            System.out.println("You travelled "+travelled+" steps.");
-            return;
         }
 
-        System.out.println("Your insufferable lucid state eludes you from going over the edge of the world. Think again.");
+        System.out.println("You travelled "+travelled+" steps.");
     }
 
+    /**
+     * Moves all monster objects in the world, except the boss
+     */
     private void moveMonsters(){
 
         for (DreamMonster monster : this.monsters){
@@ -487,6 +563,12 @@ public class DreamWorld {
         }
     }
 
+    /**
+     * Parses the game file and creates a world of objects
+     * @param fileName String indicating the name of the file
+     * @throws BadFileFormatException Can throw an exception if the file is in the incorrect format
+     * @throws IOException Can throw an input/output exception
+     */
     public void parseFile(String fileName) throws BadFileFormatException, IOException {
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(fileName)));
@@ -549,32 +631,37 @@ public class DreamWorld {
         reader.close();
     }
 
+    /**
+     * Returns the object at a specified row and column
+     * @param row Integer indicating row
+     * @param col Integer indicating column
+     * @return Returns a dream object
+     */
     public DreamObject getObjectAt(int row, int col){
         return this.world[row][col];
     }
 
+    /**
+     * Returns a dream object at a specified dream location
+     * @param location Dream location of the object
+     * @return Returns a dream object
+     */
     public DreamObject getObjectAt(DreamLocation location){
         return this.world[location.getRow()][location.getCol()];
     }
 
-    public void replaceWithSpace(DreamObject object){
-        DreamLocation location = object.getDreamLocation();
-
-        if (object instanceof DreamMonster){
-            this.monsters.remove(object);
-        }
-
-        if (object instanceof Food){
-            this.food.remove(object);
-        }
-
-        this.world[location.getRow()][location.getCol()] = new Space(location);
-    }
-
+    /**
+     *
+     * @return Returns the player object
+     */
     public Player getPlayer(){
         return this.player;
     }
 
+    /**
+     * Overridden toString method
+     * @return Returns a string representation of the dream world
+     */
     @Override
     public String toString(){
         StringBuilder str = new StringBuilder();

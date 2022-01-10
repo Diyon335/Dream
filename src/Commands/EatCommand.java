@@ -7,7 +7,7 @@ import GameClasses.DreamWorld;
 
 public class EatCommand extends BaseCommand {
     /**
-     * Constructor for Base Command
+     * Constructor for the eat command
      *
      * @param world Dream world
      */

@@ -6,7 +6,7 @@ import GameClasses.DreamLocation;
 import java.util.*;
 
 /**
- * Class for moveable, extends Dream object
+ * Abstract class for Moveable, extends Dream object
  */
 public abstract class Moveable extends DreamObject {
 
@@ -65,10 +65,14 @@ public abstract class Moveable extends DreamObject {
 
     /**
      * Adds an attack to the object's known set of attacks
-     * @param attack
+     * @param attack Attack to add
      */
     public void addAttack(Attack attack){this.attacks.add(attack);}
 
+    /**
+     *
+     * @return Returns a random attack from all known attacks
+     */
     public Attack getRandomAttack(){
         return this.attacks.get(new Random().nextInt(this.attacks.size()));
     }
@@ -110,23 +114,4 @@ public abstract class Moveable extends DreamObject {
      * @return Returns an array of strings with the object's dialogue, if any
      */
     public abstract String[] getDialogue();
-
-    /**
-     *
-     * @return Returns a boolean indicating whether the object can move
-     */
-    public abstract boolean canMove();
-
-    /**
-     *
-     * @return Returns a boolean indicating whether the object can fight
-     */
-    public abstract boolean canFight();
-
-
-    /**
-     *
-     * @return Returns a boolean indicating whether the object can be damaged
-     */
-    public abstract boolean isDamageable();
 }

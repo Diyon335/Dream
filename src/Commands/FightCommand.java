@@ -4,15 +4,12 @@ import AbstractClasses.BaseCommand;
 import AbstractClasses.DreamObject;
 import AbstractClasses.Moveable;
 import Enums.Direction;
-import Enums.FightTurn;
 import GameClasses.DreamLocation;
 import GameClasses.DreamWorld;
-import Objects.DreamMonster;
-import Objects.Player;
 
 public class FightCommand extends BaseCommand {
     /**
-     * Constructor for Base Command
+     * Constructor for the fight command
      *
      * @param world Dream world
      */

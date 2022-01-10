@@ -6,7 +6,7 @@ import GameClasses.DreamWorld;
  */
 public abstract class BaseCommand {
 
-    DreamWorld world;
+    private DreamWorld world;
 
     /**
      * Constructor for Base Command

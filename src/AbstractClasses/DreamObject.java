@@ -68,6 +68,10 @@ public abstract class DreamObject {
         this.location.changeLocation(rowChange,colChange);
     }
 
+    /**
+     * Sets the location of a dream object
+     * @param location New dream location of the object
+     */
     public void setLocation(DreamLocation location){
         this.location = location;
     }

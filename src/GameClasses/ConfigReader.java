@@ -7,6 +7,9 @@ import java.io.*;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Class to read the contents of the configuration file
+ */
 public class ConfigReader {
 
     private String playerName, playerItemsString;
@@ -31,6 +34,10 @@ public class ConfigReader {
     };
 
 
+    /**
+     * Constructor for the config reader
+     * @param world Instance of the dream world
+     */
     public ConfigReader(DreamWorld world){
 
         this.world = world;
@@ -69,30 +76,65 @@ public class ConfigReader {
         }
     }
 
+    /**
+     *
+     * @return Returns a string containing the player name
+     */
     public String getPlayerName() {
         return playerName;
     }
 
+    /**
+     *
+     * @return Returns an integer with the amount of player health
+     */
     public int getPlayerHealth() {
         return playerHealth;
     }
 
+    /**
+     *
+     * @return Returns an integer with the amount of player souls
+     */
     public int getPlayerSouls() {
         return playerSouls;
     }
 
+    /**
+     *
+     * @return Returns an integer indicating the default health of the player
+     */
     public int getDefaultHealth(){return this.defaultHealth;}
 
+    /**
+     *
+     * @return Returns a set of items (dream objects) that the player had/has in their bag
+     */
     public Set<DreamObject> getPlayerItems(){return this.playerItems;}
 
+    /**
+     *
+     * @return Returns a boolean indicating if the player had any saved data
+     */
     public boolean hasSaved() {
         return hasSaved;
     }
 
+    /**
+     *
+     * @return Returns an integer indicating the amount of souls a player can win after defeating a monster
+     */
     public int getSoulsWon(){return this.soulsWon;}
 
+    /**
+     *
+     * @return Returns an integer indicating the amount of souls a player can lose if defeated by a monster
+     */
     public int getSoulsLost(){return this.soulsLost;}
 
+    /**
+     * Resets the game to the default configurations and overrides all files and data
+     */
     public void resetToDefault(){
         try{
             //false overwrites
@@ -111,6 +153,9 @@ public class ConfigReader {
         this.world.setState(GameState.OFFLINE);
     }
 
+    /**
+     * Saves the current state of the game and config
+     */
     public void saveConfig(){
         try{
 
@@ -145,15 +190,31 @@ public class ConfigReader {
         }
     }
 
+    /**
+     *
+     * @return Returns an integer with the maximum amount of food allowed in the game
+     */
     public int getMaxFood() {
         return maxFood;
     }
 
+    /**
+     *
+     * @return Returns an integer with the maximum amount of monsters allowed in the game
+     */
     public int getMaxMonsters() {
         return maxMonsters;
     }
 
+    /**
+     *
+     * @return Returns an integer indicating the default health of any monster
+     */
     public int getDefaultMonsterHealth(){return this.monsterHealth;}
 
+    /**
+     *
+     * @return Returns an integer indicating the default health of the boss
+     */
     public int getDefaultBossHealth(){return this.bossHealth;}
 }

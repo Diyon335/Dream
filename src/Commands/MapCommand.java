@@ -5,6 +5,10 @@ import GameClasses.DreamWorld;
 
 public class MapCommand extends BaseCommand {
 
+    /**
+     * Constructor for the map command
+     * @param world Instance of dream world
+     */
     public MapCommand(DreamWorld world){
         super(world);
     }
