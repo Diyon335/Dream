@@ -89,7 +89,7 @@ public class DreamWorld {
 
         this.spawnerTask = new SpawnerTask(this);
 
-        this.timer.schedule(this.spawnerTask, 300000, 600000);
+        this.timer.schedule(this.spawnerTask, getConfig().getSpawnTime()* 100000L, getConfig().getSpawnTime()* 100000L);
     }
 
     /**

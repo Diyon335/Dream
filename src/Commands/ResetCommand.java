@@ -84,6 +84,7 @@ public class ResetCommand extends BaseCommand {
         String input = scanner.nextLine();
 
         if (input.equalsIgnoreCase("y")){
+            System.out.println("Game was reset. Please restart");
             getWorld().getConfig().resetToDefault();
             return;
         }

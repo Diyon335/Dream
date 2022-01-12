@@ -1,12 +1,13 @@
-player-name: oaoa
+player-name: -
 player-health: 20
-player-souls: 5
-has-saved-data: true
+player-souls: 0
+has-saved-data: false
 max-food: 40
 max-monsters: 40
 monster-health: 15
 boss-health: 100
-player-items: c,c,i
+player-items: -
 souls-per-win: 10
 souls-per-loss: 5
 default-health: 20
+spawn-every-mins: 3

@@ -75,6 +75,7 @@ public class QuitCommand extends BaseCommand {
             return;
         }
 
+        System.out.println("Saved data and exited game!");
         getWorld().saveAndQuit();
     }
 }

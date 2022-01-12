@@ -15,6 +15,7 @@ public class ConfigReader {
     private String playerName, playerItemsString;
     private Set<DreamObject> playerItems = new HashSet<>();
     private int playerHealth, playerSouls, maxFood, maxMonsters, monsterHealth, bossHealth, soulsWon, soulsLost, defaultHealth;
+    private int spawnTime;
     private boolean hasSaved;
     private DreamWorld world;
 
@@ -30,7 +31,8 @@ public class ConfigReader {
             "player-items: -",
             "souls-per-win: 10",
             "souls-per-loss: 5",
-            "default-health: 20"
+            "default-health: 20",
+            "spawn-every-mins: 3"
     };
 
 
@@ -68,6 +70,7 @@ public class ConfigReader {
             this.soulsWon = Integer.parseInt(reader.readLine().split(" ")[1]);
             this.soulsLost = Integer.parseInt(reader.readLine().split(" ")[1]);
             this.defaultHealth = Integer.parseInt(reader.readLine().split(" ")[1]);
+            this.spawnTime = Integer.parseInt(reader.readLine().split(" ")[1]);
 
             reader.close();
 
@@ -83,6 +86,12 @@ public class ConfigReader {
     public String getPlayerName() {
         return playerName;
     }
+
+    /**
+     *
+     * @return Returns an integer indicating how often to spawn entities
+     */
+    public int getSpawnTime(){return this.spawnTime;}
 
     /**
      *
@@ -171,7 +180,8 @@ public class ConfigReader {
                     String.format("player-items: %s", this.world.getPlayer().getBag().toString()),
                     "souls-per-win: 10",
                     "souls-per-loss: 5",
-                    "default-health: 20"
+                    "default-health: 20",
+                    "spawn-every-mins: 3"
             };
 
             FileWriter writer = new FileWriter("config.txt", false);
